@@ -31,6 +31,9 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Three.js for 3D Interactions -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP & ScrollTrigger for Scroll-Driven 3D & UI Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         ::selection {
             background-color: #2563EB;
@@ -48,19 +51,31 @@
         .animate-ticker:hover {
             animation-play-state: paused;
         }
-        /* Canvas background styling for hero 3D grid */
-        #hero-canvas {
-            position: absolute;
+        /* Full-page immersive 3D WebGL background canvas */
+        #webgl-canvas {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
             z-index: 0;
+        }
+        body {
+            position: relative;
+            background-color: #F9F8F6;
+        }
+        /* Ensure all structural content stays cleanly layered above the 3D canvas */
+        header, section, div:not(#webgl-canvas) {
+            position: relative;
+            z-index: 1;
         }
     </style>
 </head>
 <body class="bg-cream text-charcoal font-sans antialiased selection:bg-accentBlue selection:text-white overflow-x-hidden">
+
+    <!-- Immersive Global 3D WebGL Background Canvas -->
+    <canvas id="webgl-canvas"></canvas>
 
     <!-- 1. Navigation Bar -->
     <header class="sticky top-0 z-50 bg-cream/80 backdrop-blur-md border-b border-charcoal/10 transition-all duration-300">
@@ -99,11 +114,10 @@
         </div>
     </header>
 
-    <!-- 2. Hero Section with 3D WebGL Canvas Background -->
+    <!-- 2. Hero Section -->
     <section class="relative pt-20 pb-16 md:pt-32 md:pb-24 border-b border-charcoal/10 overflow-hidden">
-        <canvas id="hero-canvas"></canvas>
-        <div class="relative z-10 max-w-7xl mx-auto px-6">
-            <div class="max-w-4xl">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="max-w-4xl hero-content">
                 <h1 class="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-charcoal leading-[1.1] mb-8">
                     I scale brands & viral video pipelines that <span class="italic font-serif text-accentBlue">actually convert</span>.
                 </h1>
@@ -123,7 +137,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t border-charcoal/15">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t border-charcoal/15 hero-metrics">
                 <div class="flex items-center space-x-4">
                     <div class="w-12 h-12 rounded-full bg-accentBlue/10 flex items-center justify-center text-accentBlue font-bold">
                         <i data-lucide="trending-up" class="w-6 h-6"></i>
@@ -196,10 +210,10 @@
         </div>
     </div>
 
-    <!-- 4. Selected Work (Case Studies / Portfolio) -->
+    <!-- 4. Selected Work -->
     <section id="work" class="py-24 border-b border-charcoal/10">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 work-header">
                 <div>
                     <span class="text-xs font-semibold tracking-widest text-accentBlue uppercase mb-3 block">01 / SELECTED WORK</span>
                     <h2 class="text-3xl sm:text-5xl font-serif font-bold text-charcoal">Campaigns built for real growth.</h2>
@@ -209,7 +223,7 @@
                 </p>
             </div>
 
-            <div class="divide-y divide-charcoal/15 border-t border-b border-charcoal/15">
+            <div class="divide-y divide-charcoal/15 border-t border-b border-charcoal/15 work-rows">
                 <div class="group py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between hover:bg-charcoal/[0.02] px-4 transition-colors cursor-pointer">
                     <div class="flex items-start md:items-center space-x-6 mb-4 md:mb-0">
                         <span class="text-sm font-mono text-charcoal/40 pt-1 md:pt-0">01</span>
@@ -304,7 +318,7 @@
     <!-- 5. About Section -->
     <section id="about" class="py-24 border-b border-charcoal/10">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center about-grid">
                 <div class="lg:col-span-7">
                     <span class="text-xs font-semibold tracking-widest text-accentBlue uppercase mb-3 block">02 / ABOUT MUHAMMAD</span>
                     <h2 class="text-3xl sm:text-5xl font-serif font-bold text-charcoal mb-8 leading-tight">
@@ -350,7 +364,7 @@
                 <h2 class="text-3xl sm:text-5xl font-serif font-bold text-charcoal">The stack behind the execution.</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 expertise-grid">
                 <div class="bg-white/50 border border-charcoal/10 rounded-2xl p-8 hover:border-accentBlue/40 transition-colors">
                     <span class="text-xs font-mono text-accentBlue font-bold mb-2 block">01. CONTENT & EDITING</span>
                     <h3 class="text-xl font-serif font-bold text-charcoal mb-4">Mastering the Edit & Hook</h3>
@@ -401,7 +415,7 @@
         </div>
     </section>
 
-    <!-- 7. Services (Interactive Stage Cards) -->
+    <!-- 7. Services -->
     <section id="services" class="py-24 border-b border-charcoal/10">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
@@ -414,7 +428,7 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 services-grid">
                 <div class="bg-white border border-charcoal/10 rounded-2xl p-8 flex flex-col justify-between hover:border-accentBlue transition-colors group">
                     <div>
                         <div class="w-12 h-12 rounded-full bg-accentBlue/10 flex items-center justify-center text-accentBlue mb-6 group-hover:bg-accentBlue group-hover:text-white transition-colors">
@@ -478,7 +492,7 @@
                 <h2 class="text-3xl sm:text-5xl font-serif font-bold text-charcoal">What clients say.</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reviews-grid">
                 <div class="bg-white border border-charcoal/10 rounded-2xl p-8 flex flex-col justify-between shadow-sm">
                     <div>
                         <div class="flex items-center space-x-1 text-amber-500 mb-6">
@@ -659,117 +673,206 @@
         </div>
     </section>
 
-    <!-- Interactive Scripts: Three.js 3D Background & UI Scroll Reveal Animations -->
+    <!-- Advanced Three.js + GSAP Scroll-Driven 3D & UI Interaction Script -->
     <script>
         lucide.createIcons();
+        gsap.registerPlugin(ScrollTrigger);
 
-        // 1. Three.js 3D Interactive Grid Background for Hero Section
-        const canvas = document.getElementById('hero-canvas');
+        // 1. Immersive 3D WebGL Background Setup (Interactive Starfield & Floating Geometric Video Pipelines)
+        const canvas = document.getElementById('webgl-canvas');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-        
+
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        // Create 3D floating nodes/cubes representing video pipelines & data points
-        const geometry = new THREE.BoxGeometry(0.6, 0.6, 0.6);
-        const material = new THREE.MeshBasicMaterial({ 
-            color: 0x2563EB, 
+        // Create interactive 3D geometry objects (Cubes & Toruses representing video pipelines and growth nodes)
+        const objectsGroup = new THREE.Group();
+        const count = 60;
+        const meshes = [];
+
+        const geomTypes = [
+            new THREE.BoxGeometry(0.5, 0.5, 0.5),
+            new THREE.TorusGeometry(0.4, 0.15, 16, 100),
+            new THREE.OctahedronGeometry(0.5)
+        ];
+
+        const wireMat = new THREE.MeshBasicMaterial({
+            color: 0x2563EB,
             wireframe: true,
             transparent: true,
-            opacity: 0.25 
+            opacity: 0.22
         });
 
-        const group = new THREE.Group();
-        const cubesCount = 40;
-        const cubes = [];
+        for (let i = 0; i < count; i++) {
+            const geom = geomTypes[Math.floor(Math.random() * geomTypes.length)];
+            const mesh = new THREE.Mesh(geom, wireMat);
 
-        for (let i = 0; i < cubesCount; i++) {
-            const cube = new THREE.Mesh(geometry, material);
-            cube.position.x = (Math.random() - 0.5) * 30;
-            cube.position.y = (Math.random() - 0.5) * 15;
-            cube.position.z = (Math.random() - 0.5) * 20;
-            
-            cube.rotation.x = Math.random() * Math.PI;
-            cube.rotation.y = Math.random() * Math.PI;
+            mesh.position.x = (Math.random() - 0.5) * 35;
+            mesh.position.y = (Math.random() - 0.5) * 55;
+            mesh.position.z = (Math.random() - 0.5) * 30;
 
-            cube.userData = {
-                rotSpeedX: (Math.random() - 0.5) * 0.01,
-                rotSpeedY: (Math.random() - 0.5) * 0.01,
-                floatSpeed: Math.random() * 0.02 + 0.005,
-                initialY: cube.position.y
+            mesh.rotation.x = Math.random() * Math.PI;
+            mesh.rotation.y = Math.random() * Math.PI;
+
+            mesh.userData = {
+                speedX: (Math.random() - 0.5) * 0.01,
+                speedY: (Math.random() - 0.5) * 0.01,
+                initialZ: mesh.position.z
             };
 
-            group.add(cube);
-            cubes.push(cube);
+            objectsGroup.add(mesh);
+            meshes.push(mesh);
         }
-        scene.add(group);
+        scene.add(objectsGroup);
+        camera.position.z = 15;
 
-        camera.position.z = 12;
-
-        // Mouse interaction parallax
+        // Mouse Parallax tracking
         let mouseX = 0;
         let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
-
-        window.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX / window.innerWidth) - 0.5;
-            mouseY = (event.clientY / window.innerHeight) - 0.5;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
         });
 
-        // Animation Loop
+        // Scroll-driven 3D camera and group animation via GSAP ScrollTrigger
+        gsap.to(objectsGroup.rotation, {
+            y: Math.PI * 2,
+            scrollTrigger: {
+                trigger: document.body,
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1.5
+            }
+        });
+
+        gsap.to(camera.position, {
+            z: 5,
+            y: -15,
+            scrollTrigger: {
+                trigger: document.body,
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1
+            }
+        });
+
+        // Render loop
         let clock = new THREE.Clock();
-        function animate3D() {
-            requestAnimationFrame(animate3D);
-            const elapsedTime = clock.getElapsedTime();
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = clock.getElapsedTime();
 
-            targetX += (mouseX - targetX) * 0.05;
-            targetY += (mouseY - targetY) * 0.05;
+            objectsGroup.rotation.x += 0.001;
+            objectsGroup.rotation.y += 0.0015;
 
-            group.rotation.y = targetX * 0.8;
-            group.rotation.x = -targetY * 0.8;
+            // Parallax influence
+            objectsGroup.position.x += (mouseX * 1.5 - objectsGroup.position.x) * 0.05;
+            objectsGroup.position.y += (-mouseY * 1.5 - objectsGroup.position.y) * 0.05;
 
-            cubes.forEach((cube) => {
-                cube.rotation.x += cube.userData.rotSpeedX;
-                cube.rotation.y += cube.userData.rotSpeedY;
-                cube.position.y = cube.userData.initialY + Math.sin(elapsedTime + cube.position.x) * 0.5;
+            meshes.forEach((mesh) => {
+                mesh.rotation.x += mesh.userData.speedX;
+                mesh.rotation.y += mesh.userData.speedY;
             });
 
             renderer.render(scene, camera);
         }
-        animate3D();
+        animate();
 
-        // Handle resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // 2. UI Smooth Scroll Reveal Animations (Intersection Observer)
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // 2. GSAP Scroll-Driven UI Section Animations & Reveal Effects
+        gsap.from(".hero-content > *", {
+            y: 40,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out"
+        });
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+        gsap.from(".hero-metrics > div", {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            delay: 0.5,
+            ease: "power3.out"
+        });
 
-        // Apply initial hidden state and transition to all major section cards and rows
-        document.querySelectorAll('section > div > *').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(25px)';
-            el.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
-            observer.observe(el);
+        // Section header reveals
+        gsap.utils.toArray("section").forEach((section) => {
+            const header = section.querySelector("h2");
+            if (header) {
+                gsap.from(header, {
+                    y: 35,
+                    opacity: 0,
+                    duration: 0.9,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            }
+        });
+
+        // Work rows stagger animation
+        gsap.from(".work-rows > div", {
+            x: -30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".work-rows",
+                start: "top 75%"
+            }
+        });
+
+        // Expertise grid cards animation
+        gsap.from(".expertise-grid > div", {
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".expertise-grid",
+                start: "top 75%"
+            }
+        });
+
+        // Services cards animation
+        gsap.from(".services-grid > div", {
+            scale: 0.95,
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".services-grid",
+                start: "top 75%"
+            }
+        });
+
+        // Reviews cards animation
+        gsap.from(".reviews-grid > div", {
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".reviews-grid",
+                start: "top 75%"
+            }
         });
 
         // Mobile menu toggle
