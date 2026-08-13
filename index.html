@@ -11,9 +11,10 @@
             theme: {
                 extend: {
                     colors: {
-                        cream: '#F9F8F6',
-                        charcoal: '#121212',
-                        accentBlue: '#2563EB',
+                        cream: '#F5F3EF',
+                        charcoal: '#0D0D0D',
+                        accentBlue: '#1D4ED8',
+                        cardBg: '#FFFFFF',
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -31,12 +32,12 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Three.js for 3D Interactions -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- GSAP & ScrollTrigger for Scroll-Driven 3D & UI Animations -->
+    <!-- GSAP & ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         ::selection {
-            background-color: #2563EB;
+            background-color: #1D4ED8;
             color: #ffffff;
         }
         @keyframes ticker {
@@ -46,12 +47,12 @@
         .animate-ticker {
             display: flex;
             width: max-content;
-            animation: ticker 25s linear infinite;
+            animation: ticker 30s linear infinite;
         }
         .animate-ticker:hover {
             animation-play-state: paused;
         }
-        /* Full-page immersive 3D WebGL background canvas */
+        /* Full-screen contrast interactive 3D WebGL Canvas */
         #webgl-canvas {
             position: fixed;
             top: 0;
@@ -60,41 +61,53 @@
             height: 100vh;
             pointer-events: none;
             z-index: 0;
+            opacity: 0.85;
         }
         body {
             position: relative;
-            background-color: #F9F8F6;
+            background-color: #F5F3EF;
         }
-        /* Ensure all structural content stays cleanly layered above the 3D canvas */
-        header, section, div:not(#webgl-canvas) {
+        header, section, footer, div:not(#webgl-canvas) {
             position: relative;
             z-index: 1;
+        }
+        /* Glassmorphism card highlights */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(13, 13, 13, 0.08);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -15px rgba(29, 78, 216, 0.12);
+            border-color: rgba(29, 78, 216, 0.3);
         }
     </style>
 </head>
 <body class="bg-cream text-charcoal font-sans antialiased selection:bg-accentBlue selection:text-white overflow-x-hidden">
 
-    <!-- Immersive Global 3D WebGL Background Canvas -->
+    <!-- Immersive Interactive 3D WebGL Background Canvas -->
     <canvas id="webgl-canvas"></canvas>
 
     <!-- 1. Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-cream/80 backdrop-blur-md border-b border-charcoal/10 transition-all duration-300">
+    <header class="sticky top-0 z-50 bg-cream/85 backdrop-blur-md border-b border-charcoal/10 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-charcoal">
-                muhammad bin imran<span class="text-accentBlue">.</span>
+            <a href="#" class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-charcoal group">
+                muhammad bin imran<span class="text-accentBlue group-hover:scale-125 inline-block transition-transform">.</span>
             </a>
 
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-charcoal/70">
-                <a href="#work" class="hover:text-charcoal transition-colors">Work</a>
-                <a href="#about" class="hover:text-charcoal transition-colors">About</a>
-                <a href="#expertise" class="hover:text-charcoal transition-colors">Expertise</a>
-                <a href="#services" class="hover:text-charcoal transition-colors">Services</a>
-                <a href="#reviews" class="hover:text-charcoal transition-colors">Reviews</a>
-                <a href="#faq" class="hover:text-charcoal transition-colors">FAQ</a>
+                <a href="#work" class="hover:text-accentBlue transition-colors">Work</a>
+                <a href="#about" class="hover:text-accentBlue transition-colors">About</a>
+                <a href="#expertise" class="hover:text-accentBlue transition-colors">Expertise</a>
+                <a href="#services" class="hover:text-accentBlue transition-colors">Services</a>
+                <a href="#reviews" class="hover:text-accentBlue transition-colors">Reviews</a>
+                <a href="#faq" class="hover:text-accentBlue transition-colors">FAQ</a>
             </nav>
 
             <div class="flex items-center space-x-4">
-                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-charcoal text-white text-sm font-medium hover:bg-accentBlue transition-colors shadow-sm">
+                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-charcoal text-white text-sm font-medium hover:bg-accentBlue transition-all shadow-sm hover:scale-105">
                     Let's talk
                 </a>
                 <button id="menu-btn" class="md:hidden p-2 text-charcoal focus:outline-none" aria-label="Toggle Menu">
@@ -104,30 +117,34 @@
         </div>
 
         <div id="mobile-menu" class="hidden md:hidden bg-cream border-b border-charcoal/10 px-6 py-4 space-y-3">
-            <a href="#work" class="block text-base font-medium text-charcoal/80 hover:text-charcoal">Work</a>
-            <a href="#about" class="block text-base font-medium text-charcoal/80 hover:text-charcoal">About</a>
-            <a href="#expertise" class="block text-base font-medium text-charcoal/80 hover:text-charcoal">Expertise</a>
-            <a href="#services" class="block text-base font-medium text-charcoal/80 hover:text-charcoal">Services</a>
-            <a href="#reviews" class="block text-base font-medium text-charcoal/80 hover:text-charcoal">Reviews</a>
-            <a href="#faq" class="block text-base font-medium text-charcoal/80 hover:text-charcoal">FAQ</a>
+            <a href="#work" class="block text-base font-medium text-charcoal/80 hover:text-accentBlue">Work</a>
+            <a href="#about" class="block text-base font-medium text-charcoal/80 hover:text-accentBlue">About</a>
+            <a href="#expertise" class="block text-base font-medium text-charcoal/80 hover:text-accentBlue">Expertise</a>
+            <a href="#services" class="block text-base font-medium text-charcoal/80 hover:text-accentBlue">Services</a>
+            <a href="#reviews" class="block text-base font-medium text-charcoal/80 hover:text-accentBlue">Reviews</a>
+            <a href="#faq" class="block text-base font-medium text-charcoal/80 hover:text-accentBlue">FAQ</a>
             <a href="#contact" class="block text-center w-full py-3 rounded-full bg-charcoal text-white text-sm font-medium hover:bg-accentBlue transition-colors">Let's talk</a>
         </div>
     </header>
 
     <!-- 2. Hero Section -->
-    <section class="relative pt-20 pb-16 md:pt-32 md:pb-24 border-b border-charcoal/10 overflow-hidden">
+    <section class="relative pt-24 pb-20 md:pt-36 md:pb-32 border-b border-charcoal/10 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
             <div class="max-w-4xl hero-content">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-accentBlue/10 text-accentBlue text-xs font-semibold uppercase tracking-wider mb-6">
+                    <span class="w-2 h-2 rounded-full bg-accentBlue animate-ping"></span>
+                    <span>Senior Social Media Manager & Video Systems Architect</span>
+                </div>
                 <h1 class="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-charcoal leading-[1.1] mb-8">
                     I scale brands & viral video pipelines that <span class="italic font-serif text-accentBlue">actually convert</span>.
                 </h1>
                 
                 <p class="text-lg sm:text-xl text-charcoal/80 font-normal leading-relaxed max-w-2xl mb-10">
-                    I'm Muhammad Bin Imran — a senior social media manager & growth strategist turning raw attention into revenue-driven communities and high-retention video systems.
+                    I'm Muhammad Bin Imran — turning raw attention into revenue-driven communities and high-retention video systems for high-growth enterprises.
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-16">
-                    <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-charcoal text-white font-medium hover:bg-accentBlue transition-colors group shadow-md">
+                    <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-charcoal text-white font-medium hover:bg-accentBlue transition-all group shadow-md hover:scale-105">
                         Start a project 
                         <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </a>
@@ -138,7 +155,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t border-charcoal/15 hero-metrics">
-                <div class="flex items-center space-x-4">
+                <div class="glass-card p-6 rounded-2xl flex items-center space-x-4">
                     <div class="w-12 h-12 rounded-full bg-accentBlue/10 flex items-center justify-center text-accentBlue font-bold">
                         <i data-lucide="trending-up" class="w-6 h-6"></i>
                     </div>
@@ -147,7 +164,7 @@
                         <div class="text-sm text-charcoal/60 font-medium">Scaling brands globally</div>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4">
+                <div class="glass-card p-6 rounded-2xl flex items-center space-x-4">
                     <div class="w-12 h-12 rounded-full bg-accentBlue/10 flex items-center justify-center text-accentBlue font-bold">
                         <i data-lucide="video" class="w-6 h-6"></i>
                     </div>
@@ -156,7 +173,7 @@
                         <div class="text-sm text-charcoal/60 font-medium">Viral videos produced</div>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4">
+                <div class="glass-card p-6 rounded-2xl flex items-center space-x-4">
                     <div class="w-12 h-12 rounded-full bg-accentBlue/10 flex items-center justify-center text-accentBlue font-bold">
                         <i data-lucide="eye" class="w-6 h-6"></i>
                     </div>
@@ -170,13 +187,13 @@
     </section>
 
     <!-- 3. Running Tech / Tools Ticker -->
-    <div class="py-6 bg-charcoal text-cream overflow-hidden whitespace-nowrap border-b border-charcoal/10">
+    <div class="py-6 bg-charcoal text-cream overflow-hidden whitespace-nowrap border-b border-charcoal/10 shadow-inner">
         <div class="animate-ticker flex items-center space-x-12 text-xs sm:text-sm tracking-widest font-semibold uppercase text-cream/80">
             <span>PREMIERE PRO</span>
             <span class="text-accentBlue">•</span>
             <span>AFTER EFFECTS</span>
             <span class="text-accentBlue">•</span>
-            <span>CAPCUT</span>
+            <span>CAPCUT PRO</span>
             <span class="text-accentBlue">•</span>
             <span>FIGMA</span>
             <span class="text-accentBlue">•</span>
@@ -194,7 +211,7 @@
             <span class="text-accentBlue">•</span>
             <span>AFTER EFFECTS</span>
             <span class="text-accentBlue">•</span>
-            <span>CAPCUT</span>
+            <span>CAPCUT PRO</span>
             <span class="text-accentBlue">•</span>
             <span>FIGMA</span>
             <span class="text-accentBlue">•</span>
@@ -224,13 +241,13 @@
             </div>
 
             <div class="divide-y divide-charcoal/15 border-t border-b border-charcoal/15 work-rows">
-                <div class="group py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between hover:bg-charcoal/[0.02] px-4 transition-colors cursor-pointer">
+                <div class="group py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between hover:bg-white/60 px-6 rounded-2xl transition-all cursor-pointer">
                     <div class="flex items-start md:items-center space-x-6 mb-4 md:mb-0">
-                        <span class="text-sm font-mono text-charcoal/40 pt-1 md:pt-0">01</span>
+                        <span class="text-sm font-mono text-accentBlue font-bold pt-1 md:pt-0">01</span>
                         <div>
                             <div class="flex flex-wrap items-center gap-3 mb-2">
                                 <h3 class="text-xl sm:text-2xl font-serif font-bold text-charcoal group-hover:text-accentBlue transition-colors">E-Commerce Brand Scaling</h3>
-                                <span class="px-3 py-1 rounded-full bg-charcoal/5 text-xs font-semibold tracking-wide text-charcoal/70">VIRAL VIDEO PIPELINE</span>
+                                <span class="px-3 py-1 rounded-full bg-accentBlue/10 text-xs font-semibold tracking-wide text-accentBlue">VIRAL VIDEO PIPELINE</span>
                             </div>
                             <p class="text-charcoal/70 text-sm sm:text-base max-w-xl">Scaled organic reach by 350% using short-form storytelling loops and psychological hooks across TikTok and IG Reels.</p>
                         </div>
@@ -246,13 +263,13 @@
                     </div>
                 </div>
 
-                <div class="group py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between hover:bg-charcoal/[0.02] px-4 transition-colors cursor-pointer">
+                <div class="group py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between hover:bg-white/60 px-6 rounded-2xl transition-all cursor-pointer">
                     <div class="flex items-start md:items-center space-x-6 mb-4 md:mb-0">
-                        <span class="text-sm font-mono text-charcoal/40 pt-1 md:pt-0">02</span>
+                        <span class="text-sm font-mono text-accentBlue font-bold pt-1 md:pt-0">02</span>
                         <div>
                             <div class="flex flex-wrap items-center gap-3 mb-2">
                                 <h3 class="text-xl sm:text-2xl font-serif font-bold text-charcoal group-hover:text-accentBlue transition-colors">SaaS Lead Generation Engine</h3>
-                                <span class="px-3 py-1 rounded-full bg-charcoal/5 text-xs font-semibold tracking-wide text-charcoal/70">LEAD GEN FUNNEL</span>
+                                <span class="px-3 py-1 rounded-full bg-accentBlue/10 text-xs font-semibold tracking-wide text-accentBlue">LEAD GEN FUNNEL</span>
                             </div>
                             <p class="text-charcoal/70 text-sm sm:text-base max-w-xl">Generated 1,200+ qualified B2B leads via targeted social funnels, authority-driven LinkedIn content, and streamlined conversion pathways.</p>
                         </div>
@@ -268,13 +285,13 @@
                     </div>
                 </div>
 
-                <div class="group py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between hover:bg-charcoal/[0.02] px-4 transition-colors cursor-pointer">
+                <div class="group py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between hover:bg-white/60 px-6 rounded-2xl transition-all cursor-pointer">
                     <div class="flex items-start md:items-center space-x-6 mb-4 md:mb-0">
-                        <span class="text-sm font-mono text-charcoal/40 pt-1 md:pt-0">03</span>
+                        <span class="text-sm font-mono text-accentBlue font-bold pt-1 md:pt-0">03</span>
                         <div>
                             <div class="flex flex-wrap items-center gap-3 mb-2">
                                 <h3 class="text-xl sm:text-2xl font-serif font-bold text-charcoal group-hover:text-accentBlue transition-colors">Creator Channel Restructure</h3>
-                                <span class="px-3 py-1 rounded-full bg-charcoal/5 text-xs font-semibold tracking-wide text-charcoal/70">BRAND TAKEOVER</span>
+                                <span class="px-3 py-1 rounded-full bg-accentBlue/10 text-xs font-semibold tracking-wide text-accentBlue">BRAND TAKEOVER</span>
                             </div>
                             <p class="text-charcoal/70 text-sm sm:text-base max-w-xl">Optimized retention rates from 22% to 58% for a top-tier creator by revamping pacing, sound design, and narrative arc architecture.</p>
                         </div>
@@ -290,13 +307,13 @@
                     </div>
                 </div>
 
-                <div class="group py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between hover:bg-charcoal/[0.02] px-4 transition-colors cursor-pointer">
+                <div class="group py-8 sm:py-10 flex flex-col md:flex-row md:items-center justify-between hover:bg-white/60 px-6 rounded-2xl transition-all cursor-pointer">
                     <div class="flex items-start md:items-center space-x-6 mb-4 md:mb-0">
-                        <span class="text-sm font-mono text-charcoal/40 pt-1 md:pt-0">04</span>
+                        <span class="text-sm font-mono text-accentBlue font-bold pt-1 md:pt-0">04</span>
                         <div>
                             <div class="flex flex-wrap items-center gap-3 mb-2">
                                 <h3 class="text-xl sm:text-2xl font-serif font-bold text-charcoal group-hover:text-accentBlue transition-colors">Omnichannel Paid Media Sprint</h3>
-                                <span class="px-3 py-1 rounded-full bg-charcoal/5 text-xs font-semibold tracking-wide text-charcoal/70">PERFORMANCE ADS</span>
+                                <span class="px-3 py-1 rounded-full bg-accentBlue/10 text-xs font-semibold tracking-wide text-accentBlue">PERFORMANCE ADS</span>
                             </div>
                             <p class="text-charcoal/70 text-sm sm:text-base max-w-xl">Managed high-ROI ad spend across TikTok and Instagram ecosystems, decreasing customer acquisition cost (CAC) by 42%.</p>
                         </div>
@@ -335,13 +352,13 @@
                 </div>
 
                 <div class="lg:col-span-5 flex justify-center">
-                    <div class="w-full max-w-sm bg-white rounded-2xl border border-charcoal/10 p-6 shadow-sm">
-                        <div class="aspect-[4/5] rounded-xl bg-charcoal/5 overflow-hidden relative mb-6 flex items-center justify-center">
+                    <div class="glass-card w-full max-w-sm rounded-3xl p-6 shadow-xl">
+                        <div class="aspect-[4/5] rounded-2xl bg-charcoal/5 overflow-hidden relative mb-6 flex items-center justify-center">
                             <div class="text-center">
                                 <span class="font-serif text-6xl font-bold text-charcoal/20">MBI</span>
                                 <span class="block text-xs font-mono text-charcoal/40 mt-2">Muhammad Bin Imran</span>
                             </div>
-                            <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-charcoal/10 flex items-center space-x-2">
+                            <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-charcoal/10 flex items-center space-x-2 shadow-sm">
                                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                                 <span class="text-xs font-semibold text-charcoal">Available for projects</span>
                             </div>
@@ -365,7 +382,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 expertise-grid">
-                <div class="bg-white/50 border border-charcoal/10 rounded-2xl p-8 hover:border-accentBlue/40 transition-colors">
+                <div class="glass-card rounded-2xl p-8">
                     <span class="text-xs font-mono text-accentBlue font-bold mb-2 block">01. CONTENT & EDITING</span>
                     <h3 class="text-xl font-serif font-bold text-charcoal mb-4">Mastering the Edit & Hook</h3>
                     <div class="flex flex-wrap gap-2">
@@ -378,7 +395,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white/50 border border-charcoal/10 rounded-2xl p-8 hover:border-accentBlue/40 transition-colors">
+                <div class="glass-card rounded-2xl p-8">
                     <span class="text-xs font-mono text-accentBlue font-bold mb-2 block">02. GROWTH & ADS</span>
                     <h3 class="text-xl font-serif font-bold text-charcoal mb-4">Performance & Distribution</h3>
                     <div class="flex flex-wrap gap-2">
@@ -389,7 +406,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white/50 border border-charcoal/10 rounded-2xl p-8 hover:border-accentBlue/40 transition-colors">
+                <div class="glass-card rounded-2xl p-8">
                     <span class="text-xs font-mono text-accentBlue font-bold mb-2 block">03. MANAGEMENT & STRATEGY</span>
                     <h3 class="text-xl font-serif font-bold text-charcoal mb-4">Leadership & Workflow</h3>
                     <div class="flex flex-wrap gap-2">
@@ -400,7 +417,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white/50 border border-charcoal/10 rounded-2xl p-8 hover:border-accentBlue/40 transition-colors">
+                <div class="glass-card rounded-2xl p-8">
                     <span class="text-xs font-mono text-accentBlue font-bold mb-2 block">04. ANALYTICS & TOOLS</span>
                     <h3 class="text-xl font-serif font-bold text-charcoal mb-4">Data & Infrastructure</h3>
                     <div class="flex flex-wrap gap-2">
@@ -429,7 +446,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 services-grid">
-                <div class="bg-white border border-charcoal/10 rounded-2xl p-8 flex flex-col justify-between hover:border-accentBlue transition-colors group">
+                <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group">
                     <div>
                         <div class="w-12 h-12 rounded-full bg-accentBlue/10 flex items-center justify-center text-accentBlue mb-6 group-hover:bg-accentBlue group-hover:text-white transition-colors">
                             <i data-lucide="clapperboard" class="w-6 h-6"></i>
@@ -442,7 +459,7 @@
                     </a>
                 </div>
 
-                <div class="bg-white border border-charcoal/10 rounded-2xl p-8 flex flex-col justify-between hover:border-accentBlue transition-colors group">
+                <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group">
                     <div>
                         <div class="w-12 h-12 rounded-full bg-accentBlue/10 flex items-center justify-center text-accentBlue mb-6 group-hover:bg-accentBlue group-hover:text-white transition-colors">
                             <i data-lucide="globe" class="w-6 h-6"></i>
@@ -455,7 +472,7 @@
                     </a>
                 </div>
 
-                <div class="bg-white border border-charcoal/10 rounded-2xl p-8 flex flex-col justify-between hover:border-accentBlue transition-colors group">
+                <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group">
                     <div>
                         <div class="w-12 h-12 rounded-full bg-accentBlue/10 flex items-center justify-center text-accentBlue mb-6 group-hover:bg-accentBlue group-hover:text-white transition-colors">
                             <i data-lucide="target" class="w-6 h-6"></i>
@@ -468,7 +485,7 @@
                     </a>
                 </div>
 
-                <div class="bg-white border border-charcoal/10 rounded-2xl p-8 flex flex-col justify-between hover:border-accentBlue transition-colors group">
+                <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group">
                     <div>
                         <div class="w-12 h-12 rounded-full bg-accentBlue/10 flex items-center justify-center text-accentBlue mb-6 group-hover:bg-accentBlue group-hover:text-white transition-colors">
                             <i data-lucide="compass" class="w-6 h-6"></i>
@@ -493,7 +510,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reviews-grid">
-                <div class="bg-white border border-charcoal/10 rounded-2xl p-8 flex flex-col justify-between shadow-sm">
+                <div class="glass-card rounded-2xl p-8 flex flex-col justify-between shadow-sm">
                     <div>
                         <div class="flex items-center space-x-1 text-amber-500 mb-6">
                             <i data-lucide="star" class="w-4 h-4 fill-current"></i>
@@ -512,7 +529,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-charcoal/10 rounded-2xl p-8 flex flex-col justify-between shadow-sm">
+                <div class="glass-card rounded-2xl p-8 flex flex-col justify-between shadow-sm">
                     <div>
                         <div class="flex items-center space-x-1 text-amber-500 mb-6">
                             <i data-lucide="star" class="w-4 h-4 fill-current"></i>
@@ -531,7 +548,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-charcoal/10 rounded-2xl p-8 flex flex-col justify-between shadow-sm">
+                <div class="glass-card rounded-2xl p-8 flex flex-col justify-between shadow-sm">
                     <div>
                         <div class="flex items-center space-x-1 text-amber-500 mb-6">
                             <i data-lucide="star" class="w-4 h-4 fill-current"></i>
@@ -562,7 +579,7 @@
             </div>
 
             <div class="space-y-4">
-                <div class="bg-white border border-charcoal/10 rounded-2xl overflow-hidden transition-all">
+                <div class="glass-card rounded-2xl overflow-hidden transition-all">
                     <button class="faq-toggle w-full px-8 py-6 text-left flex items-center justify-between font-serif font-bold text-lg text-charcoal focus:outline-none">
                         <span>What kind of projects do you take on?</span>
                         <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-200"></i>
@@ -572,7 +589,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-charcoal/10 rounded-2xl overflow-hidden transition-all">
+                <div class="glass-card rounded-2xl overflow-hidden transition-all">
                     <button class="faq-toggle w-full px-8 py-6 text-left flex items-center justify-between font-serif font-bold text-lg text-charcoal focus:outline-none">
                         <span>How do we work together?</span>
                         <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-200"></i>
@@ -582,7 +599,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-charcoal/10 rounded-2xl overflow-hidden transition-all">
+                <div class="glass-card rounded-2xl overflow-hidden transition-all">
                     <button class="faq-toggle w-full px-8 py-6 text-left flex items-center justify-between font-serif font-bold text-lg text-charcoal focus:outline-none">
                         <span>How long does a typical campaign take to show results?</span>
                         <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-200"></i>
@@ -592,7 +609,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-charcoal/10 rounded-2xl overflow-hidden transition-all">
+                <div class="glass-card rounded-2xl overflow-hidden transition-all">
                     <button class="faq-toggle w-full px-8 py-6 text-left flex items-center justify-between font-serif font-bold text-lg text-charcoal focus:outline-none">
                         <span>What does your management service cost?</span>
                         <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-200"></i>
@@ -602,7 +619,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white border border-charcoal/10 rounded-2xl overflow-hidden transition-all">
+                <div class="glass-card rounded-2xl overflow-hidden transition-all">
                     <button class="faq-toggle w-full px-8 py-6 text-left flex items-center justify-between font-serif font-bold text-lg text-charcoal focus:outline-none">
                         <span>Do you handle both editing and strategy?</span>
                         <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-200"></i>
@@ -637,7 +654,7 @@
                     </div>
                 </div>
 
-                <div class="lg:col-span-7 bg-white/5 border border-white/10 rounded-3xl p-8 sm:p-10">
+                <div class="lg:col-span-7 bg-white/5 border border-white/10 rounded-3xl p-8 sm:p-10 backdrop-blur-md">
                     <form id="contact-form" class="space-y-6">
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-cream/70 mb-2">Your Name</label>
@@ -651,7 +668,7 @@
                             <label class="block text-xs font-semibold uppercase tracking-wider text-cream/70 mb-2">About Your Project</label>
                             <textarea rows="4" required placeholder="Tell me about your goals, current challenges, and timeline..." class="w-full bg-white/5 border border-white/15 rounded-xl px-4 py-3.5 text-white placeholder-cream/30 focus:outline-none focus:border-accentBlue transition-colors"></textarea>
                         </div>
-                        <button type="submit" class="w-full py-4 rounded-xl bg-accentBlue text-white font-medium hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2 shadow-lg">
+                        <button type="submit" class="w-full py-4 rounded-xl bg-accentBlue text-white font-medium hover:bg-blue-600 transition-all flex items-center justify-center space-x-2 shadow-lg hover:scale-[1.02]">
                             <span>Send message</span>
                             <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </button>
@@ -673,12 +690,12 @@
         </div>
     </section>
 
-    <!-- Advanced Three.js + GSAP Scroll-Driven 3D & UI Interaction Script -->
+    <!-- Advanced Three.js & GSAP Scroll-Driven Interaction Engine -->
     <script>
         lucide.createIcons();
         gsap.registerPlugin(ScrollTrigger);
 
-        // 1. Immersive 3D WebGL Background Setup (Interactive Starfield & Floating Geometric Video Pipelines)
+        // 1. High-Contrast 3D WebGL Background Setup (Floating Wireframe & Solid Video Pipeline Primitives)
         const canvas = document.getElementById('webgl-canvas');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -687,48 +704,55 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        // Create interactive 3D geometry objects (Cubes & Toruses representing video pipelines and growth nodes)
-        const objectsGroup = new THREE.Group();
-        const count = 60;
-        const meshes = [];
+        // Create sophisticated geometric nodes (Icosahedrons, Toruses, Cubes) for video pipelines
+        const group3D = new THREE.Group();
+        const shapesCount = 75;
+        const meshItems = [];
 
-        const geomTypes = [
+        const geometries = [
             new THREE.BoxGeometry(0.5, 0.5, 0.5),
-            new THREE.TorusGeometry(0.4, 0.15, 16, 100),
-            new THREE.OctahedronGeometry(0.5)
+            new THREE.IcosahedronGeometry(0.4, 0),
+            new THREE.TorusGeometry(0.35, 0.12, 16, 50)
         ];
 
-        const wireMat = new THREE.MeshBasicMaterial({
-            color: 0x2563EB,
+        const matWire = new THREE.MeshBasicMaterial({
+            color: 0x1D4ED8,
             wireframe: true,
             transparent: true,
-            opacity: 0.22
+            opacity: 0.18
         });
 
-        for (let i = 0; i < count; i++) {
-            const geom = geomTypes[Math.floor(Math.random() * geomTypes.length)];
-            const mesh = new THREE.Mesh(geom, wireMat);
+        const matSolid = new THREE.MeshBasicMaterial({
+            color: 0x0D0D0D,
+            wireframe: false,
+            transparent: true,
+            opacity: 0.05
+        });
 
-            mesh.position.x = (Math.random() - 0.5) * 35;
-            mesh.position.y = (Math.random() - 0.5) * 55;
-            mesh.position.z = (Math.random() - 0.5) * 30;
+        for (let i = 0; i < shapesCount; i++) {
+            const geom = geometries[Math.floor(Math.random() * geometries.length)];
+            const material = i % 2 === 0 ? matWire : matSolid;
+            const mesh = new THREE.Mesh(geom, material);
+
+            mesh.position.x = (Math.random() - 0.5) * 40;
+            mesh.position.y = (Math.random() - 0.5) * 60;
+            mesh.position.z = (Math.random() - 0.5) * 35;
 
             mesh.rotation.x = Math.random() * Math.PI;
             mesh.rotation.y = Math.random() * Math.PI;
 
             mesh.userData = {
-                speedX: (Math.random() - 0.5) * 0.01,
-                speedY: (Math.random() - 0.5) * 0.01,
-                initialZ: mesh.position.z
+                rotSpeedX: (Math.random() - 0.5) * 0.015,
+                rotSpeedY: (Math.random() - 0.5) * 0.015
             };
 
-            objectsGroup.add(mesh);
-            meshes.push(mesh);
+            group3D.add(mesh);
+            meshItems.push(mesh);
         }
-        scene.add(objectsGroup);
-        camera.position.z = 15;
+        scene.add(group3D);
+        camera.position.z = 16;
 
-        // Mouse Parallax tracking
+        // Mouse Parallax interaction
         let mouseX = 0;
         let mouseY = 0;
         window.addEventListener('mousemove', (e) => {
@@ -736,9 +760,9 @@
             mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
         });
 
-        // Scroll-driven 3D camera and group animation via GSAP ScrollTrigger
-        gsap.to(objectsGroup.rotation, {
-            y: Math.PI * 2,
+        // Scroll-driven camera dynamics via GSAP ScrollTrigger
+        gsap.to(group3D.rotation, {
+            y: Math.PI * 2.5,
             scrollTrigger: {
                 trigger: document.body,
                 start: "top top",
@@ -748,8 +772,8 @@
         });
 
         gsap.to(camera.position, {
-            z: 5,
-            y: -15,
+            z: 6,
+            y: -18,
             scrollTrigger: {
                 trigger: document.body,
                 start: "top top",
@@ -758,63 +782,63 @@
             }
         });
 
-        // Render loop
+        // Render animation loop
         let clock = new THREE.Clock();
-        function animate() {
-            requestAnimationFrame(animate);
-            const time = clock.getElapsedTime();
+        function renderLoop() {
+            requestAnimationFrame(renderLoop);
+            
+            group3D.rotation.x += 0.0008;
+            group3D.rotation.y += 0.0012;
 
-            objectsGroup.rotation.x += 0.001;
-            objectsGroup.rotation.y += 0.0015;
+            // Smooth parallax tracking
+            group3D.position.x += (mouseX * 1.8 - group3D.position.x) * 0.06;
+            group3D.position.y += (-mouseY * 1.8 - group3D.position.y) * 0.06;
 
-            // Parallax influence
-            objectsGroup.position.x += (mouseX * 1.5 - objectsGroup.position.x) * 0.05;
-            objectsGroup.position.y += (-mouseY * 1.5 - objectsGroup.position.y) * 0.05;
-
-            meshes.forEach((mesh) => {
-                mesh.rotation.x += mesh.userData.speedX;
-                mesh.rotation.y += mesh.userData.speedY;
+            meshItems.forEach((m) => {
+                m.rotation.x += m.userData.rotSpeedX;
+                m.rotation.y += m.userData.rotSpeedY;
             });
 
             renderer.render(scene, camera);
         }
-        animate();
+        renderLoop();
 
+        // Responsive window resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // 2. GSAP Scroll-Driven UI Section Animations & Reveal Effects
+        // 2. High-Impact GSAP Scroll-Driven UI Stagger Animations
         gsap.from(".hero-content > *", {
-            y: 40,
+            y: 50,
             opacity: 0,
-            duration: 1,
+            duration: 1.1,
             stagger: 0.2,
             ease: "power3.out"
         });
 
         gsap.from(".hero-metrics > div", {
-            y: 30,
+            y: 35,
             opacity: 0,
-            duration: 0.8,
+            duration: 0.9,
             stagger: 0.15,
-            delay: 0.5,
+            delay: 0.4,
             ease: "power3.out"
         });
 
         // Section header reveals
-        gsap.utils.toArray("section").forEach((section) => {
-            const header = section.querySelector("h2");
-            if (header) {
-                gsap.from(header, {
-                    y: 35,
+        gsap.utils.toArray("section").forEach((sec) => {
+            const h2 = sec.querySelector("h2");
+            if (h2) {
+                gsap.from(h2, {
+                    y: 40,
                     opacity: 0,
                     duration: 0.9,
                     ease: "power3.out",
                     scrollTrigger: {
-                        trigger: section,
+                        trigger: sec,
                         start: "top 80%",
                         toggleActions: "play none none reverse"
                     }
@@ -822,56 +846,53 @@
             }
         });
 
-        // Work rows stagger animation
+        // Stagger cards & items on scroll
         gsap.from(".work-rows > div", {
-            x: -30,
+            x: -40,
             opacity: 0,
             duration: 0.8,
-            stagger: 0.15,
+            stagger: 0.12,
             ease: "power3.out",
             scrollTrigger: {
                 trigger: ".work-rows",
-                start: "top 75%"
+                start: "top 78%"
             }
         });
 
-        // Expertise grid cards animation
         gsap.from(".expertise-grid > div", {
-            y: 40,
+            y: 45,
             opacity: 0,
             duration: 0.8,
-            stagger: 0.15,
+            stagger: 0.12,
             ease: "power3.out",
             scrollTrigger: {
                 trigger: ".expertise-grid",
-                start: "top 75%"
+                start: "top 78%"
             }
         });
 
-        // Services cards animation
         gsap.from(".services-grid > div", {
-            scale: 0.95,
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: "power3.out",
-            scrollTrigger: {
-                trigger: ".services-grid",
-                start: "top 75%"
-            }
-        });
-
-        // Reviews cards animation
-        gsap.from(".reviews-grid > div", {
+            scale: 0.92,
             y: 40,
             opacity: 0,
             duration: 0.8,
-            stagger: 0.15,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: ".services-grid",
+                start: "top 78%"
+            }
+        });
+
+        gsap.from(".reviews-grid > div", {
+            y: 45,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.12,
             ease: "power3.out",
             scrollTrigger: {
                 trigger: ".reviews-grid",
-                start: "top 75%"
+                start: "top 78%"
             }
         });
 
@@ -882,7 +903,7 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // FAQ Accordions
+        // FAQ Accordion interactions
         const faqToggles = document.querySelectorAll('.faq-toggle');
         faqToggles.forEach(toggle => {
             toggle.addEventListener('click', () => {
@@ -893,7 +914,7 @@
             });
         });
 
-        // Contact form submission
+        // Contact form handler
         document.getElementById('contact-form').addEventListener('submit', (e) => {
             e.preventDefault();
             alert('Thank you! Your message has been sent successfully. Muhammad will get back to you within 24 hours.');
