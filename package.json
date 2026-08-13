@@ -1,0 +1,23 @@
+/* STREAMING_CHUNK:Creating package.json configuration... */
+{
+"name": "muhammad-bin-imran-portfolio",
+"version": "1.0.0",
+"description": "High-end minimalist personal portfolio for Muhammad Bin Imran, Senior Social Media Manager & Video Editor.",
+"main": "index.html",
+"scripts": {
+"dev": "npx serve .",
+"build": "echo 'Static HTML portfolio ready for deployment!'"
+},
+"keywords": [
+"portfolio",
+"social-media-manager",
+"video-editor",
+"tailwind-css",
+"boutique-agency"
+],
+"author": "Muhammad Bin Imran",
+"license": "MIT",
+"devDependencies": {
+"serve": "^14.2.4"
+}
+}
