@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Bin Imran — Senior Social Media Manager & Video Editor</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Playfair Display / Cormorant Garamond for luxury serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F9F8F6',
+                        'cream-card': '#F2EFE9',
+                        charcoal: '#121212',
+                        'electric-blue': '#2563EB',
+                        'royal-blue': '#1D4ED8'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar and ticker animations */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F9F8F6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D1CDC5;
+            border-radius: 4px;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-ticker {
+            display: flex;
+            width: max-content;
+            animation: ticker 30s linear infinite;
+        }
+        .animate-ticker:hover {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body class="bg-cream text-charcoal font-sans antialiased selection:bg-electric-blue selection:text-white">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-cream/90 backdrop-blur-md border-b border-charcoal/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Left Logo -->
+            <a href="#" class="text-xl font-bold tracking-tight flex items-center">
+                muhammad bin imran<span class="text-electric-blue text-2xl font-serif ml-0.5">.</span>
+            </a>
+
+            <!-- Center Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-charcoal/80">
+                <a href="#work" class="hover:text-electric-blue transition-colors">Work</a>
+                <a href="#about" class="hover:text-electric-blue transition-colors">About</a>
+                <a href="#expertise" class="hover:text-electric-blue transition-colors">Expertise</a>
+                <a href="#services" class="hover:text-electric-blue transition-colors">Services</a>
+                <a href="#reviews" class="hover:text-electric-blue transition-colors">Reviews</a>
+                <a href="#faq" class="hover:text-electric-blue transition-colors">FAQ</a>
+            </nav>
+
+            <!-- Right CTA Button -->
+            <div class="flex items-center space-x-4">
+                <a href="#contact" class="bg-charcoal text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-electric-blue transition-all duration-300 shadow-sm">
+                    Let's talk
+                </a>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-charcoal focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cream border-b border-charcoal/10 px-6 py-6 space-y-4">
+            <a href="#work" class="block text-lg font-medium hover:text-electric-blue mobile-link">Work</a>
+            <a href="#about" class="block text-lg font-medium hover:text-electric-blue mobile-link">About</a>
+            <a href="#expertise" class="block text-lg font-medium hover:text-electric-blue mobile-link">Expertise</a>
+            <a href="#services" class="block text-lg font-medium hover:text-electric-blue mobile-link">Services</a>
+            <a href="#reviews" class="block text-lg font-medium hover:text-electric-blue mobile-link">Reviews</a>
+            <a href="#faq" class="block text-lg font-medium hover:text-electric-blue mobile-link">FAQ</a>
+            <a href="#contact" class="block text-lg font-medium text-electric-blue mobile-link">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-36 pb-20 md:pt-48 md:pb-32 px-6 max-w-7xl mx-auto border-b border-charcoal/10">
+        <div class="max-w-4xl">
+            <div class="inline-flex items-center space-x-2 bg-cream-card px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide mb-6 border border-charcoal/10">
+                <span class="w-2 h-2 rounded-full bg-electric-blue animate-pulse"></span>
+                <span>Senior Social Media Manager & Video Editor</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-serif font-normal tracking-tight leading-[1.1] mb-8">
+                I scale brands & viral video pipelines that <span class="italic text-electric-blue font-semibold">actually convert</span>.
+            </h1>
+            
+            <p class="text-lg sm:text-xl text-charcoal/70 font-normal leading-relaxed max-w-2xl mb-10">
+                I'm Muhammad Bin Imran — a senior social media manager & growth strategist turning raw attention into revenue-driven communities and high-retention video systems.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-16">
+                <a href="#contact" class="bg-charcoal text-white px-8 py-4 rounded-full font-medium text-center hover:bg-electric-blue transition-all duration-300 flex items-center justify-center space-x-2 shadow-sm">
+                    <span>Start a project</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+                <a href="#work" class="border border-charcoal/20 px-8 py-4 rounded-full font-medium text-center hover:border-charcoal hover:bg-charcoal/5 transition-all duration-300">
+                    Selected work
+                </a>
+            </div>
+        </div>
+
+        <!-- Key Metrics Bar -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t border-charcoal/10">
+            <div class="p-6 rounded-2xl bg-cream-card/50 border border-charcoal/5">
+                <div class="text-3xl font-serif font-bold text-charcoal mb-1">5+ Years</div>
+                <div class="text-sm text-charcoal/60">Scaling high-growth brands & creators</div>
+            </div>
+            <div class="p-6 rounded-2xl bg-cream-card/50 border border-charcoal/5">
+                <div class="text-3xl font-serif font-bold text-charcoal mb-1">100+</div>
+                <div class="text-sm text-charcoal/60">Viral videos produced with high retention</div>
+            </div>
+            <div class="p-6 rounded-2xl bg-cream-card/50 border border-charcoal/5">
+                <div class="text-3xl font-serif font-bold text-charcoal mb-1">10M+</div>
+                <div class="text-sm text-charcoal/60">Total organic views generated globally</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Running Tech / Tools Ticker -->
+    <div class="py-8 bg-charcoal text-cream overflow-hidden whitespace-nowrap relative">
+        <div class="animate-ticker flex items-center space-x-12 text-sm uppercase tracking-widest font-semibold opacity-90">
+            <span class="flex items-center space-x-3"><span>PREMIERE PRO</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>AFTER EFFECTS</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>CAPCUT</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>FIGMA</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>NOTION</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>HUBSPOT</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>META ADS</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>TIKTOK CREATOR TOOLS</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>GOOGLE ANALYTICS</span><span class="text-electric-blue">✦</span></span>
+            <!-- Duplicate for infinite seamless scroll -->
+            <span class="flex items-center space-x-3"><span>PREMIERE PRO</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>AFTER EFFECTS</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>CAPCUT</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>FIGMA</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>NOTION</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>HUBSPOT</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>META ADS</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>TIKTOK CREATOR TOOLS</span><span class="text-electric-blue">✦</span></span>
+            <span class="flex items-center space-x-3"><span>GOOGLE ANALYTICS</span><span class="text-electric-blue">✦</span></span>
+        </div>
+    </div>
+
+    <!-- Selected Work Section -->
+    <section id="work" class="py-24 px-6 max-w-7xl mx-auto border-b border-charcoal/10">
+        <div class="mb-16">
+            <div class="text-xs uppercase tracking-widest text-electric-blue font-semibold mb-3">01 / SELECTED WORK</div>
+            <h2 class="text-3xl sm:text-5xl font-serif font-normal tracking-tight">Campaigns built for real growth.</h2>
+        </div>
+
+        <div class="space-y-4">
+            <!-- Project 1 -->
+            <div class="group p-8 rounded-3xl bg-cream-card/50 hover:bg-cream-card border border-charcoal/10 transition-all duration-300 cursor-pointer project-card" data-project="1">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="flex items-start space-x-6">
+                        <span class="text-2xl font-serif text-charcoal/40 font-semibold mt-1">01</span>
+                        <div>
+                            <div class="flex flex-wrap items-center gap-3 mb-2">
+                                <h3 class="text-2xl font-serif font-semibold text-charcoal group-hover:text-electric-blue transition-colors">E-Commerce Brand Scaling</h3>
+                                <span class="bg-electric-blue/10 text-electric-blue text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Viral Video Pipeline</span>
+                            </div>
+                            <p class="text-charcoal/70 text-base max-w-xl">Scaled organic reach by 350% using short-form storytelling loops, hook optimization, and high-velocity asset testing.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between md:justify-end space-x-4">
+                        <span class="text-xs text-charcoal/50 font-medium">View Case Study</span>
+                        <div class="w-12 h-12 rounded-full border border-charcoal/20 flex items-center justify-center group-hover:bg-charcoal group-hover:text-white transition-all duration-300">
+                            <svg class="w-5 h-5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="group p-8 rounded-3xl bg-cream-card/50 hover:bg-cream-card border border-charcoal/10 transition-all duration-300 cursor-pointer project-card" data-project="2">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="flex items-start space-x-6">
+                        <span class="text-2xl font-serif text-charcoal/40 font-semibold mt-1">02</span>
+                        <div>
+                            <div class="flex flex-wrap items-center gap-3 mb-2">
+                                <h3 class="text-2xl font-serif font-semibold text-charcoal group-hover:text-electric-blue transition-colors">SaaS Lead Generation Engine</h3>
+                                <span class="bg-electric-blue/10 text-electric-blue text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Lead Gen Funnel</span>
+                            </div>
+                            <p class="text-charcoal/70 text-base max-w-xl">Generated 1,200+ qualified B2B leads via targeted social funnels, authority-driven video explainers, and precise distribution.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between md:justify-end space-x-4">
+                        <span class="text-xs text-charcoal/50 font-medium">View Case Study</span>
+                        <div class="w-12 h-12 rounded-full border border-charcoal/20 flex items-center justify-center group-hover:bg-charcoal group-hover:text-white transition-all duration-300">
+                            <svg class="w-5 h-5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="group p-8 rounded-3xl bg-cream-card/50 hover:bg-cream-card border border-charcoal/10 transition-all duration-300 cursor-pointer project-card" data-project="3">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="flex items-start space-x-6">
+                        <span class="text-2xl font-serif text-charcoal/40 font-semibold mt-1">03</span>
+                        <div>
+                            <div class="flex flex-wrap items-center gap-3 mb-2">
+                                <h3 class="text-2xl font-serif font-semibold text-charcoal group-hover:text-electric-blue transition-colors">Creator Channel Restructure</h3>
+                                <span class="bg-electric-blue/10 text-electric-blue text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Brand Takeover</span>
+                            </div>
+                            <p class="text-charcoal/70 text-base max-w-xl">Optimized retention rates from 22% to 58% for a top-tier creator by redefining narrative architecture and pacing rhythms.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between md:justify-end space-x-4">
+                        <span class="text-xs text-charcoal/50 font-medium">View Case Study</span>
+                        <div class="w-12 h-12 rounded-full border border-charcoal/20 flex items-center justify-center group-hover:bg-charcoal group-hover:text-white transition-all duration-300">
+                            <svg class="w-5 h-5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="group p-8 rounded-3xl bg-cream-card/50 hover:bg-cream-card border border-charcoal/10 transition-all duration-300 cursor-pointer project-card" data-project="4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div class="flex items-start space-x-6">
+                        <span class="text-2xl font-serif text-charcoal/40 font-semibold mt-1">04</span>
+                        <div>
+                            <div class="flex flex-wrap items-center gap-3 mb-2">
+                                <h3 class="text-2xl font-serif font-semibold text-charcoal group-hover:text-electric-blue transition-colors">Omnichannel Paid Media Sprint</h3>
+                                <span class="bg-electric-blue/10 text-electric-blue text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Paid Media Sprint</span>
+                            </div>
+                            <p class="text-charcoal/70 text-base max-w-xl">Managed high-ROI ad spend across TikTok and Instagram ecosystems, scaling ROAS from 2.1x to 4.8x in 90 days.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between md:justify-end space-x-4">
+                        <span class="text-xs text-charcoal/50 font-medium">View Case Study</span>
+                        <div class="w-12 h-12 rounded-full border border-charcoal/20 flex items-center justify-center group-hover:bg-charcoal group-hover:text-white transition-all duration-300">
+                            <svg class="w-5 h-5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 max-w-7xl mx-auto border-b border-charcoal/10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-8">
+                <div class="text-xs uppercase tracking-widest text-electric-blue font-semibold">02 / ABOUT MUHAMMAD</div>
+                <h2 class="text-3xl sm:text-5xl font-serif font-normal tracking-tight leading-tight">
+                    Most managers chase vanity metrics. I build <span class="italic text-electric-blue font-semibold">revenue systems</span>.
+                </h2>
+                <div class="space-y-4 text-charcoal/80 text-base sm:text-lg leading-relaxed">
+                    <p>
+                        Over 5 years in the trenches, I've managed complex social ecosystems, led creative teams, and directed high-impact video editing workflows from raw footage to final hook-driven delivery.
+                    </p>
+                    <p>
+                        I don't just understand distribution; I understand psychological triggers, retention mechanics, and how to capture high-intent leads that convert into long-term customer LTV.
+                    </p>
+                </div>
+                <div class="flex items-center space-x-6 pt-4">
+                    <div>
+                        <div class="text-2xl font-serif font-bold text-charcoal">5+ yrs</div>
+                        <div class="text-xs text-charcoal/60 uppercase tracking-wider">Experience</div>
+                    </div>
+                    <div class="w-px h-10 bg-charcoal/20"></div>
+                    <div>
+                        <div class="text-2xl font-serif font-bold text-charcoal">10M+</div>
+                        <div class="text-xs text-charcoal/60 uppercase tracking-wider">Views</div>
+                    </div>
+                    <div class="w-px h-10 bg-charcoal/20"></div>
+                    <div>
+                        <div class="text-2xl font-serif font-bold text-charcoal">100%</div>
+                        <div class="text-xs text-charcoal/60 uppercase tracking-wider">Dedication</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Card -->
+            <div class="lg:col-span-5 flex justify-center">
+                <div class="w-full max-w-md bg-cream-card p-6 rounded-3xl border border-charcoal/10 shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-medium flex items-center space-x-1.5 border border-charcoal/10">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span>Available for hire</span>
+                    </div>
+                    <!-- Photo placeholder -->
+                    <div class="w-full h-80 rounded-2xl bg-charcoal/10 overflow-hidden mb-6 flex items-center justify-center relative">
+                        <img src="https://placehold.co/600x700/121212/FFFFFF?text=Muhammad+Bin+Imran" alt="Muhammad Bin Imran" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x700/121212/FFFFFF?text=MBI'">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-serif font-bold text-charcoal mb-1">Muhammad Bin Imran</h3>
+                        <p class="text-sm text-charcoal/60">Senior Social Media Manager & Growth Strategist</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise / Skills Stack -->
+    <section id="expertise" class="py-24 px-6 max-w-7xl mx-auto border-b border-charcoal/10">
+        <div class="mb-16">
+            <div class="text-xs uppercase tracking-widest text-electric-blue font-semibold mb-3">03 / SKILLS & STACK</div>
+            <h2 class="text-3xl sm:text-5xl font-serif font-normal tracking-tight">The stack behind the execution.</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Category 1 -->
+            <div class="p-8 rounded-3xl bg-cream-card/50 border border-charcoal/10">
+                <div class="text-lg font-serif font-bold text-charcoal mb-4 flex items-center justify-between">
+                    <span>01. Content & Editing</span>
+                    <span class="text-electric-blue text-sm font-sans font-normal">Core Production</span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Premiere Pro</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">After Effects</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">CapCut Pro</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Scriptwriting</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Hook Architecture</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Sound Design</span>
+                </div>
+            </div>
+
+            <!-- Category 2 -->
+            <div class="p-8 rounded-3xl bg-cream-card/50 border border-charcoal/10">
+                <div class="text-lg font-serif font-bold text-charcoal mb-4 flex items-center justify-between">
+                    <span>02. Growth & Ads</span>
+                    <span class="text-electric-blue text-sm font-sans font-normal">Acquisition</span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Meta Ads Manager</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">TikTok Ads</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Organic Distribution</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Funnel Optimization</span>
+                </div>
+            </div>
+
+            <!-- Category 3 -->
+            <div class="p-8 rounded-3xl bg-cream-card/50 border border-charcoal/10">
+                <div class="text-lg font-serif font-bold text-charcoal mb-4 flex items-center justify-between">
+                    <span>03. Management & Strategy</span>
+                    <span class="text-electric-blue text-sm font-sans font-normal">Operations</span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Team Leadership</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Content Calendars</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">CRM Tracking</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Lead Qualification</span>
+                </div>
+            </div>
+
+            <!-- Category 4 -->
+            <div class="p-8 rounded-3xl bg-cream-card/50 border border-charcoal/10">
+                <div class="text-lg font-serif font-bold text-charcoal mb-4 flex items-center justify-between">
+                    <span>04. Analytics & Tools</span>
+                    <span class="text-electric-blue text-sm font-sans font-normal">Intelligence</span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Google Analytics</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Social Blade</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Notion</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">Airtable</span>
+                    <span class="bg-white px-4 py-2 rounded-full text-xs font-medium border border-charcoal/10 text-charcoal">HubSpot</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 px-6 max-w-7xl mx-auto border-b border-charcoal/10">
+        <div class="mb-16">
+            <div class="text-xs uppercase tracking-widest text-electric-blue font-semibold mb-3">04 / SERVICES</div>
+            <h2 class="text-3xl sm:text-5xl font-serif font-normal tracking-tight mb-4">Some of what I <span class="italic text-electric-blue font-semibold">offer</span>.</h2>
+            <p class="text-charcoal/70 text-lg">Pick your growth stage — or explore how we can partner.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Service 1 -->
+            <div class="p-8 rounded-3xl bg-cream-card/50 border border-charcoal/10 hover:border-electric-blue transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-full bg-electric-blue/10 text-electric-blue flex items-center justify-center font-bold mb-6">01</div>
+                    <h3 class="text-xl font-serif font-bold text-charcoal mb-3">Mobile & Video Systems</h3>
+                    <p class="text-charcoal/70 text-sm leading-relaxed mb-6">High-retention video pipelines, hook writing, dynamic pacing, and complete editing workflows for Shorts, Reels, and TikToks.</p>
+                </div>
+                <a href="#contact" class="text-xs font-semibold text-electric-blue uppercase tracking-wider flex items-center space-x-1 hover:underline">
+                    <span>Inquire now</span>
+                    <span>→</span>
+                </a>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="p-8 rounded-3xl bg-cream-card/50 border border-charcoal/10 hover:border-electric-blue transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-full bg-electric-blue/10 text-electric-blue flex items-center justify-center font-bold mb-6">02</div>
+                    <h3 class="text-xl font-serif font-bold text-charcoal mb-3">Full-Stack Social Management</h3>
+                    <p class="text-charcoal/70 text-sm leading-relaxed mb-6">End-to-end community building, content calendar architecture, multi-platform publishing, and daily engagement strategies.</p>
+                </div>
+                <a href="#contact" class="text-xs font-semibold text-electric-blue uppercase tracking-wider flex items-center space-x-1 hover:underline">
+                    <span>Inquire now</span>
+                    <span>→</span>
+                </a>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="p-8 rounded-3xl bg-cream-card/50 border border-charcoal/10 hover:border-electric-blue transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-full bg-electric-blue/10 text-electric-blue flex items-center justify-center font-bold mb-6">03</div>
+                    <h3 class="text-xl font-serif font-bold text-charcoal mb-3">Paid Lead Generation</h3>
+                    <p class="text-charcoal/70 text-sm leading-relaxed mb-6">Targeted paid media sprints across Meta & TikTok to drive high-converting traffic directly into qualified sales funnels.</p>
+                </div>
+                <a href="#contact" class="text-xs font-semibold text-electric-blue uppercase tracking-wider flex items-center space-x-1 hover:underline">
+                    <span>Inquire now</span>
+                    <span>→</span>
+                </a>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="p-8 rounded-3xl bg-cream-card/50 border border-charcoal/10 hover:border-electric-blue transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="w-10 h-10 rounded-full bg-electric-blue/10 text-electric-blue flex items-center justify-center font-bold mb-6">04</div>
+                    <h3 class="text-xl font-serif font-bold text-charcoal mb-3">Creative Direction & Advisory</h3>
+                    <p class="text-charcoal/70 text-sm leading-relaxed mb-6">Strategic consulting for in-house teams, brand aesthetic overhauls, and structural video pipeline audits for maximum output.</p>
+                </div>
+                <a href="#contact" class="text-xs font-semibold text-electric-blue uppercase tracking-wider flex items-center space-x-1 hover:underline">
+                    <span>Inquire now</span>
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials / Reviews -->
+    <section id="reviews" class="py-24 px-6 max-w-7xl mx-auto border-b border-charcoal/10">
+        <div class="mb-16">
+            <div class="text-xs uppercase tracking-widest text-electric-blue font-semibold mb-3">05 / TESTIMONIALS</div>
+            <h2 class="text-3xl sm:text-5xl font-serif font-normal tracking-tight">What clients say.</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Review 1 -->
+            <div class="p-8 rounded-3xl bg-cream-card/50 border border-charcoal/10 flex flex-col justify-between">
+                <div>
+                    <div class="flex text-amber-500 mb-6 space-x-1">
+                        ★★★★★
+                    </div>
+                    <p class="text-charcoal/80 text-base leading-relaxed mb-8">
+                        "Muhammad completely transformed our video output. His precision with hooks and pacing boosted our retention by over 40% in just two months. Absolute top-tier professional."
+                    </p>
+                </div>
+                <div>
+                    <div class="font-serif font-bold text-charcoal">Marcus Vance</div>
+                    <div class="text-xs text-charcoal/60">Founder, E-Commerce Scale Lab</div>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="p-8 rounded-3xl bg-cream-card/50 border border-charcoal/10 flex flex-col justify-between">
+                <div>
+                    <div class="flex text-amber-500 mb-6 space-x-1">
+                        ★★★★★
+                    </div>
+                    <p class="text-charcoal/80 text-base leading-relaxed mb-8">
+                        "Working with Muhammad is effortless. His communication is lightning fast, and his strategic grasp on social funnels brought us over 1,000 qualified B2B leads."
+                    </p>
+                </div>
+                <div>
+                    <div class="font-serif font-bold text-charcoal">Sarah Jenkins</div>
+                    <div class="text-xs text-charcoal/60">CMO, SaaS Growth Dynamics</div>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="p-8 rounded-3xl bg-cream-card/50 border border-charcoal/10 flex flex-col justify-between">
+                <div>
+                    <div class="flex text-amber-500 mb-6 space-x-1">
+                        ★★★★★
+                    </div>
+                    <p class="text-charcoal/80 text-base leading-relaxed mb-8">
+                        "He doesn't just edit videos; he engineers attention. Our revenue scaled alongside our view count because Muhammad understands how to convert viewers into buyers."
+                    </p>
+                </div>
+                <div>
+                    <div class="font-serif font-bold text-charcoal">David Sterling</div>
+                    <div class="text-xs text-charcoal/60">Top-Tier Content Creator</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 px-6 max-w-4xl mx-auto border-b border-charcoal/10">
+        <div class="text-center mb-16">
+            <div class="text-xs uppercase tracking-widest text-electric-blue font-semibold mb-3">06 / FAQ</div>
+            <h2 class="text-3xl sm:text-5xl font-serif font-normal tracking-tight">You have questions, I have answers.</h2>
+        </div>
+
+        <div class="space-y-4">
+            <!-- FAQ Item 1 -->
+            <div class="border border-charcoal/10 rounded-2xl bg-cream-card/50 overflow-hidden transition-all">
+                <button class="faq-toggle w-full px-8 py-6 text-left flex items-center justify-between font-serif font-semibold text-xl text-charcoal focus:outline-none">
+                    <span>What kind of projects do you take on?</span>
+                    <span class="transform transition-transform duration-300 text-electric-blue text-2xl font-sans">+</span>
+                </button>
+                <div class="faq-content hidden px-8 pb-6 text-charcoal/70 text-base leading-relaxed">
+                    I partner with high-growth e-commerce brands, B2B SaaS companies, and top-tier creators looking to build scalable social media engines, high-retention video pipelines, and high-ROI acquisition funnels.
+                </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="border border-charcoal/10 rounded-2xl bg-cream-card/50 overflow-hidden transition-all">
+                <button class="faq-toggle w-full px-8 py-6 text-left flex items-center justify-between font-serif font-semibold text-xl text-charcoal focus:outline-none">
+                    <span>How do we work together?</span>
+                    <span class="transform transition-transform duration-300 text-electric-blue text-2xl font-sans">+</span>
+                </button>
+                <div class="faq-content hidden px-8 pb-6 text-charcoal/70 text-base leading-relaxed">
+                    We start with an initial discovery call to audit your current social channels and funnel. From there, I formulate a custom growth roadmap, integrate into your workflows via Notion/Slack, and execute end-to-end.
+                </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="border border-charcoal/10 rounded-2xl bg-cream-card/50 overflow-hidden transition-all">
+                <button class="faq-toggle w-full px-8 py-6 text-left flex items-center justify-between font-serif font-semibold text-xl text-charcoal focus:outline-none">
+                    <span>How long does a typical campaign take to show results?</span>
+                    <span class="transform transition-transform duration-300 text-electric-blue text-2xl font-sans">+</span>
+                </button>
+                <div class="faq-content hidden px-8 pb-6 text-charcoal/70 text-base leading-relaxed">
+                    While paid media sprints can yield immediate data within 7–14 days, organic video pipelines and content systems typically compound significantly between 30 to 90 days of consistent publishing.
+                </div>
+            </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="border border-charcoal/10 rounded-2xl bg-cream-card/50 overflow-hidden transition-all">
+                <button class="faq-toggle w-full px-8 py-6 text-left flex items-center justify-between font-serif font-semibold text-xl text-charcoal focus:outline-none">
+                    <span>What does your management service cost?</span>
+                    <span class="transform transition-transform duration-300 text-electric-blue text-2xl font-sans">+</span>
+                </button>
+                <div class="faq-content hidden px-8 pb-6 text-charcoal/70 text-base leading-relaxed">
+                    Pricing varies depending on the scope—whether you need dedicated video editing retainers, full-stack social media management, or paid ads execution. Book a call to receive a tailored proposal.
+                </div>
+            </div>
+
+            <!-- FAQ Item 5 -->
+            <div class="border border-charcoal/10 rounded-2xl bg-cream-card/50 overflow-hidden transition-all">
+                <button class="faq-toggle w-full px-8 py-6 text-left flex items-center justify-between font-serif font-semibold text-xl text-charcoal focus:outline-none">
+                    <span>Do you handle both editing and strategy?</span>
+                    <span class="transform transition-transform duration-300 text-electric-blue text-2xl font-sans">+</span>
+                </button>
+                <div class="faq-content hidden px-8 pb-6 text-charcoal/70 text-base leading-relaxed">
+                    Yes. That is my core competitive advantage. I bridge high-level macro growth strategy with micro-level execution (hook writing, editing, pacing, and sound design) so nothing gets lost in translation.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section & Footer -->
+    <section id="contact" class="py-24 px-6 max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+            <div class="text-xs uppercase tracking-widest text-electric-blue font-semibold mb-3">07 / GET IN TOUCH</div>
+            <h2 class="text-4xl sm:text-6xl font-serif font-normal tracking-tight mb-4">Let's scale something great.</h2>
+            <p class="text-charcoal/70 text-lg max-w-xl mx-auto">
+                Have a brand that needs a content engine, or an existing funnel that needs scaling? Tell me about it — I reply within 24 hours.
+            </p>
+        </div>
+
+        <!-- Contact Form -->
+        <form id="contact-form" class="bg-cream-card p-8 sm:p-12 rounded-3xl border border-charcoal/10 space-y-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-charcoal/70 font-semibold mb-2">Your Name</label>
+                    <input type="text" required placeholder="John Doe" class="w-full bg-white border border-charcoal/10 rounded-xl px-4 py-3.5 text-charcoal focus:outline-none focus:border-electric-blue transition-colors">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-charcoal/70 font-semibold mb-2">Email Address</label>
+                    <input type="email" required placeholder="john@brand.com" class="w-full bg-white border border-charcoal/10 rounded-xl px-4 py-3.5 text-charcoal focus:outline-none focus:border-electric-blue transition-colors">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-charcoal/70 font-semibold mb-2">About Your Project</label>
+                <textarea rows="4" required placeholder="Tell me about your goals, current metrics, and what you're looking to achieve..." class="w-full bg-white border border-charcoal/10 rounded-xl px-4 py-3.5 text-charcoal focus:outline-none focus:border-electric-blue transition-colors"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-charcoal text-white py-4 rounded-xl font-medium hover:bg-electric-blue transition-all duration-300 flex items-center justify-center space-x-2 shadow-sm">
+                <span>Send message</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+            <div id="form-success" class="hidden text-center text-sm font-medium text-electric-blue pt-2">
+                Thank you! Your message has been sent successfully. I will be in touch within 24 hours.
+            </div>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-charcoal/10 py-12 px-6 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between text-sm text-charcoal/60 space-y-4 sm:space-y-0">
+        <div>
+            © 2026 Muhammad Bin Imran. All rights reserved.
+        </div>
+        <div class="flex items-center space-x-6">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-electric-blue transition-colors">LinkedIn</a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="hover:text-electric-blue transition-colors">YouTube</a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="hover:text-electric-blue transition-colors">X / Twitter</a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-electric-blue transition-colors">Instagram</a>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // FAQ Accordion
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        faqToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const content = toggle.nextElementSibling;
+                const icon = toggle.querySelector('span:last-child');
+                
+                // Close other accordions
+                faqToggles.forEach(otherToggle => {
+                    if (otherToggle !== toggle) {
+                        otherToggle.nextElementSibling.classList.add('hidden');
+                        otherToggle.querySelector('span:last-child').textContent = '+';
+                        otherToggle.querySelector('span:last-child').style.transform = 'rotate(0deg)';
+                    }
+                });
+
+                content.classList.toggle('hidden');
+                if (content.classList.contains('hidden')) {
+                    icon.textContent = '+';
+                } else {
+                    icon.textContent = '−';
+                }
+            });
+        });
+
+        // Contact Form Submission Handler (No alert())
+        const contactForm = document.getElementById('contact-form');
+        const formSuccess = document.getElementById('form-success');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formSuccess.classList.remove('hidden');
+            contactForm.reset();
+            setTimeout(() => {
+                formSuccess.classList.add('hidden');
+            }, 6000);
+        });
+
+        // Interactive Project Row Click Simulation
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const projectNum = card.getAttribute('data-project');
+                const title = card.querySelector('h3').textContent;
+                // Smooth scroll to contact with pre-filled context or simulated view
+                const contactSection = document.getElementById('contact');
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+                const messageBox = contactForm.querySelector('textarea');
+                messageBox.value = "Hi Muhammad, I'm interested in discussing your case study on " + title + " and how we can achieve similar results for my brand.";
+            });
+        });
+    </script>
+</body>
+</html>
